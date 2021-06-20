@@ -4,7 +4,7 @@ void SysClk_Config()
 {
 
 	RCC->CR |= 0x00010000;  		   // 16. bit of CR register = HSEON
-	while(!( RCC->CR & 0x00020000 ));  // wait until HSE Ready Bit that is 17. bit of CR register
+	while(!( RCC->CR & 0x00020000 ));  	   // wait until HSE Ready Bit that is 17. bit of CR register
 	RCC->APB1ENR |= 0x10000000;		   // PWREN= power interface clock enable
 	PWR->CR      |= 0x00003000;	   	   // Voltage Regulator scale set to 1
 	FLASH->ACR   |= 0x00000705;		   // Data cache enable, instruction cache enable, prefetch enable, five wait state to Flash memort access time
