@@ -2,7 +2,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://www.st.com/bin/ecommerce/api/image.PF252419.en.feature-description-include-personalized-no-cpn-medium.jpg" alt="Logo" width="100" height="180">
+  <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32f0discovery.html&psig=AOvVaw2kMIZO_3YmJXV29iF31QR-&ust=1624441319916000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCJjMnu75qvECFQAAAAAdAAAAABAD" alt="Logo" width="100" height="180">
   </a>
 
   <h3 align="center">General Purpose Input Output Interface</h3>
