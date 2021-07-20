@@ -1,3 +1,4 @@
+// ayengec SPI with registers, LIS3DSH motion MEMS sensor code
 #include "stm32f407xx.h"
 #include "Delay.h"
 #include "RCC_Config.h"
@@ -97,6 +98,7 @@ uint8_t SPI1_Receive()
 uint8_t SPI1_RegWrite(uint8_t mdata)
 {
 	SPI1->DR = mdata;
+	//while((SPI1->SR & SPI_SR_TXE) != SPI_SR_TXE);
 	while (!(SPI1->SR & (1<<0)));	// Wait RXNE
 	return (SPI1->DR);
 }
@@ -108,7 +110,7 @@ int main(void)
     SPI1_Init();					// Initialize SPI1 interface
     SPI1_Enable();
 
-	uint8_t IDdata, infoData1, infoData2;
+	uint8_t IDdata, infoData1, infoData2, dummy;
 	uint8_t xout[2], yout[2], zout[2];
 	int16_t x_axis_val, y_axis_val, z_axis_val;
 	float x_val, y_val, z_val;
@@ -124,34 +126,34 @@ int main(void)
 	    CS1_Disable();
 
 		CS1_Enable();
-		infoData1 = SPI1_RegWrite(0x8D);	// INFO1 register
+		dummy = SPI1_RegWrite(0x8D);	// INFO1 register
 		infoData1 = SPI1_Receive(); // while receiving, sending dummy 0x00 from mosi channel
 	    CS1_Disable();
 
 		CS1_Enable();
-		infoData2 = SPI1_RegWrite(0x8E);	// INFO2 register
+		dummy = SPI1_RegWrite(0x8E);	// INFO2 register
 		infoData2 = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 	    CS1_Disable();
 
 		CS1_Enable();
-		IDdata = SPI1_RegWrite(0x8F);		// WHO_AM_I register
+		dummy = SPI1_RegWrite(0x8F);		// WHO_AM_I register
 		IDdata = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 	    CS1_Disable();
 
 		CS1_Enable();
-		xout[0] = SPI1_RegWrite(0xA8);	// X-axis accelerometer value burst read
+		dummy = SPI1_RegWrite(0xA8);	// X-axis accelerometer value burst read
 		xout[0] = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 		xout[1] = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 	    CS1_Disable();
 
 		CS1_Enable();
-		yout[0] = SPI1_RegWrite(0xAA);	// Y-axis accelerometer value burst read
+		dummy = SPI1_RegWrite(0xAA);	// Y-axis accelerometer value burst read
 		yout[0] = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 		yout[1] = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 	    CS1_Disable();
 
 		CS1_Enable();
-		zout[0] = SPI1_RegWrite(0xAC);	// Z-axis accelerometer value burst read
+		dummy = SPI1_RegWrite(0xAC);	// Z-axis accelerometer value burst read
 		zout[0] = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 		zout[1] = SPI1_Receive();	// while receiving, sending dummy 0x00 from mosi channel
 	    CS1_Disable();
